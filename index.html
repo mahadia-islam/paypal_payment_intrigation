@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paypal Payment Intrgation</title>
+    <link rel="stylesheet" href="./dist/output.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="w-full md:h-screen h-fit bg-slate-800 flex items-center justify-center">
+        <div class="w-9/12 m-auto flex justify-between md:flex-row flex-col px-10 md:px-0 py-5 md:py-0">
+            <div class="md:w-1/5 w-full md:my-0 my-5 text-white text-center">
+                <div class="w-full h-fit relative">
+                    <img src="./img/1.jpeg" alt="" class="w-full">
+                    <div class="absolute bg-yellow-400 w-full flex bottom-0 left-0 justify-between">
+                        <button class="w-12 h-12 flex items-center justify-center border-r border-r-slate-50"><img src="./img/heart.png" alt=""></button>
+                        <button onclick="sendReq('Golden Ratio Watch',50)" class="flex h-12 items-center"><span>buy now</span> <img src="./img/cart.png" alt="" class="ml-2"></button>
+                        <button class="w-12 h-12 flex items-center justify-center border-l border-l-slate-50"><img src="./img/eye.png" alt=""></button>
+                    </div>
+                </div>
+                <p class="pb-2 py-3 font-light">Golden Ratio Watch</p>
+                <h4>50$</h4>
+            </div>
+            <div class="md:w-1/5 w-full md:my-0 my-5 text-white text-center">
+                <div class="w-full h-fit relative">
+                    <img src="./img/2.png" alt="" class="w-full bg-white">
+                    <div class="absolute bg-yellow-400 w-full flex bottom-0 left-0 justify-between">
+                        <button class="w-12 h-12 flex items-center justify-center border-r border-r-slate-50"><img src="./img/heart.png"
+                                alt=""></button>
+                        <button onclick="sendReq('Child Jacket',40)" class="flex h-12 items-center"><span>buy now</span> <img src="./img/cart.png" alt=""
+                                class="ml-2"></button>
+                        <button class="w-12 h-12 flex items-center justify-center border-l border-l-slate-50"><img src="./img/eye.png"
+                                alt=""></button>
+                        </div>
+                </div>
+                <p class="pb-2 py-3 font-light">Child Jacket</p>
+                <h4>40$</h4>
+            </div>
+            <div class="md:w-1/5 w-full md:my-0 my-5 text-white text-center">
+                <div class="w-full h-fit relative">
+                    <img src="./img/3.jpg" alt="" class="w-full">
+                    <div class="absolute bg-yellow-400 w-full flex bottom-0 left-0 justify-between">
+                        <button class="w-12 h-12 flex items-center justify-center border-r border-r-slate-50"><img src="./img/heart.png"
+                                alt=""></button>
+                        <button onclick="sendReq('Starx Watch',32)" class="flex h-12 items-center">
+                            <span>buy now</span> 
+                            <img src="./img/cart.png" alt="" class="ml-2">
+                        </button>
+                        <button class="w-12 h-12 flex items-center justify-center border-l border-l-slate-50"><img src="./img/eye.png"
+                                alt=""></button>
+                        </div>
+                </div>
+                <p class="pb-2 py-3 font-light">Starx Watch</p>
+                <h4>32$</h4>
+            </div>
+            <div class="md:w-1/5 w-full md:my-0 my-5 text-white text-center">
+                <div class="w-full h-fit relative">
+                    <img src="./img/4.jpg" alt="" class="w-full">
+                    <div class="absolute bg-yellow-400 w-full flex bottom-0 left-0 justify-between">
+                        <button class="w-12 h-12 flex items-center justify-center border-r border-r-slate-50"><img src="./img/heart.png"
+                                alt=""></button>
+                        <button onclick="sendReq('Ladies Jacket',37)" class="flex h-12 items-center"><span class="">buy now</span> <img src="./img/cart.png" alt=""
+                                class="ml-2"></button>
+                        <button class="w-12 h-12 flex items-center justify-center border-l border-l-slate-50"><img src="./img/eye.png"
+                                alt=""></button>
+                        </div>
+                </div>
+                <p class="pb-2 py-3 font-light">Ladie's Jacket</p>
+                <h4>37$</h4>
+            </div>
+        </div>
+    </div>
+    <script>
+        function sendReq(name,price){
+            fetch("/pay",{
+                method:"POST",
+                body:JSON.stringify({
+                    "name":name,
+                    "price":price
+                }),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
+            .then(async data => {
+                const response = await data.json();
+                window.location = response.forwardLink;
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        }
+    </script>
+</body>
+</html>
